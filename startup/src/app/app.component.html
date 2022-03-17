@@ -1,0 +1,44 @@
+<h1>Choose your favorite Pokemon to get its details</h1>
+
+<mat-form-field appearance="fill">
+  <mat-label>Pokemons</mat-label>
+  <mat-select (selectionChange)="fetchPokemonDetails($event.value)">
+    <mat-option *ngFor="let pokemon of pokemonsList" [value]="pokemon">
+      {{pokemon}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+
+<mat-card class="example-card" *ngIf="pokemonData">
+  <mat-card-header>
+    <img mat-card-avatar class="example-header-image" [src]="pokemonData?.sprites?.front_default" />
+    <mat-card-title>
+      <div>
+        {{pokemonName | uppercase}}
+      </div>
+    </mat-card-title>
+    <mat-card-subtitle>Type: {{ pokemonType | uppercase}}</mat-card-subtitle>
+    <div style="display: flex; margin-left: auto; font-weight: bold;">
+      HP: {{pokemonData?.base_experience}}
+    </div>
+  </mat-card-header>
+  <img mat-card-image [src]="pokemonData?.sprites?.other?.dream_world?.front_default" alt="Photo of a Pokemon">
+  <mat-card-content>
+    <div style="display:flex; justify-content: space-between;">
+      <div style="font-weight: bold;">
+        Height: {{pokemonData?.height}} ft
+      </div>
+      <div style="font-weight: bold;">
+        Weight: {{pokemonData?.weight}} lbs
+      </div>
+      <div style="font-weight: bold;">
+        Id: {{pokemonData?.id}}
+      </div>
+    </div>
+    <p>
+      <strong>Description</strong>: {{pokemonDesc}}
+    </p>
+  </mat-card-content>
+</mat-card>
+
+<router-outlet></router-outlet>
